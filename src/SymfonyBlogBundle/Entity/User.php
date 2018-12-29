@@ -51,9 +51,22 @@ class User implements UserInterface
      */
     private $articles;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="SymfonyBlogBundle\Entity\Role")
+     * @ORM\JoinTable(name="users_roles",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     *     )
+     */
+    private $roles;
+
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     /**
@@ -170,11 +183,29 @@ class User implements UserInterface
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return (Role|string)[] The user roles
+     * @return array (Role|string)[] The user roles
      */
     public function getRoles()
     {
-        return [];
+        $stringRoles = [];
+
+        foreach ($this->roles as $role) {
+            /** @var Role $role*/
+            $stringRoles[] = $role->getRole();
+        }
+        return $stringRoles;
+    }
+
+    /**
+     * @param Role $role
+     *
+     * @return User
+     */
+    public function addRole(Role $role)
+    {
+        $this->roles[] = $role;
+        return $this;
+
     }
 
     /**
@@ -199,12 +230,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function getShortName()
-    {
-        $shortName = explode(' ',$this->fullName);
-        return $shortName[0];
 
-    }
 
     /**
      * Removes sensitive data from the user.
@@ -215,6 +241,30 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getShortName()
+    {
+        $shortName = explode(' ',$this->fullName);
+        return $shortName[0];
+
+    }
+
+    /**
+     * @param Article $article
+     * @return bool
+     */
+    public function isAuthor(Article $article)
+    {
+        return $article->getAuthorId() === $this->getId();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles(), true);
     }
 }
 

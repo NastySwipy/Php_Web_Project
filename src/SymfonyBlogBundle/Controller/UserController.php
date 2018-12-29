@@ -5,6 +5,7 @@ namespace SymfonyBlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use SymfonyBlogBundle\Entity\Role;
 use SymfonyBlogBundle\Entity\User;
 use SymfonyBlogBundle\Form\UserType;
 
@@ -22,9 +23,20 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
+
             $password = $this->get('security.password_encoder')
             ->encodePassword($user, $user->getPassword());
+
+            $role = $this
+                ->getDoctrine()
+                ->getRepository(Role::class)
+                ->findOneBy(['name' => 'ROLE_USER']);
+
+            /** @var Role $role */
+            $user->addRole($role);
+
             $user->setPassword($password);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

@@ -111,7 +111,7 @@ class Article
      */
     public function getSummary()
     {
-        if (strlen($this->content > 50)) {
+        if (strlen($this->content) > 50) {
             $this->setSummary();
         }
         return $this->summary;

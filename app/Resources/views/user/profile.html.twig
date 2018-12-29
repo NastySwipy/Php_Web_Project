@@ -1,6 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<h1>Hello, {{ user.fullName }}</h1>
+    <div>
+        <h1>Hi, {{ user.shortName }}</h1>
+    </div>
+    <div>
+        <h3>Email: {{ user.email }}</h3>
+    </div>
+    <div>
+        <h3>Full Name: {{ user.fullName }}</h3>
+    </div>
 
 {% endblock %}

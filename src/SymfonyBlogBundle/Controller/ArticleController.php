@@ -142,4 +142,21 @@ class ArticleController extends Controller
         return $this->render('article/delete.html.twig',
             ['form' => $form->createView(), 'article' => $article]);
     }
+
+    /**
+     * @Route("/myArticles", name="myArticles")
+     * @Security("is_granted('ISIS_AUTHENTICATED_FULLY')")
+     *
+     */
+    public function myArticles()
+    {
+        /** @var User $currentUserId */
+//        $currentUserId = $currentUserId->getId();
+        $currentUserId = $this->getUser()->getId();
+
+
+        $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBy(['']);
+    }
 }

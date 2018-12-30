@@ -26,14 +26,18 @@ class UserController extends Controller
 
 
             /**
-             * Validation on existing email for registration
+             * Validation on existing email for registration and password length
              * First we take the emailInput from the form,
              * then is a query we send to DB to find if this email already exist!
              * At the end we check if result from the query is null or not and we send some msg!
+             * Then we do some simple check for how long is the pass if les then 4 not good!
              */
             $emailInput = $form->getData()->getEmail();
             $passwordInput = $form->getData()->getPassword();
-            $currentUser = $this->getDoctrine()->getRepository(User::class)->findBy(['email' => $emailInput]);
+            $currentUser = $this
+                ->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['email' => $emailInput]);
 
             if ([] !== $currentUser) {
                 $this->addFlash('warning', 'This email: ' . $emailInput . ' already exists!');

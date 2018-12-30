@@ -24,6 +24,27 @@ class UserController extends Controller
 
         if ($form->isSubmitted()) {
 
+
+            /**
+             * Validation on existing email for registration
+             * First we take the emailInput from the form,
+             * then is a query we send to DB to find if this email already exist!
+             * At the end we check if result from the query is null or not and we send some msg!
+             */
+            $emailInput = $form->getData()->getEmail();
+            $passwordInput = $form->getData()->getPassword();
+            $currentUser = $this->getDoctrine()->getRepository(User::class)->findBy(['email' => $emailInput]);
+
+            if ([] !== $currentUser) {
+                $this->addFlash('warning', 'This email: ' . $emailInput . ' already exists!');
+                return $this->render('user/register.html.twig');
+            }
+
+            if (strlen($passwordInput) < 4) {
+                $this->addFlash('warning', 'Password is too short!');
+                return $this->render('user/register.html.twig');
+            }
+
             $password = $this->get('security.password_encoder')
             ->encodePassword($user, $user->getPassword());
 

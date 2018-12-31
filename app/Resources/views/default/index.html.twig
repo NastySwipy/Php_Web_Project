@@ -9,13 +9,17 @@
                         <header>
                             <h2>{{ article.title }}</h2>
                         </header>
-
+                       <a href="{{ path('article_view', {'id': article.id}) }}"><img src="{{ article.imageUrl }}" width="200" height="100"></a>
                         <p>
                             {{ article.summary }}
                         </p>
 
                         <small class="author">
                             {{ article.author.fullName }}
+                        </small>
+
+                        <small class="author">
+                            Views: {{ article.viewCount }}
                         </small>
 
                         <footer>

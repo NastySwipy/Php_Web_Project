@@ -27,6 +27,7 @@ class ArticleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $currentUser = $this->getUser();
             $article->setAuthor($currentUser);
+            $article->setViewCount(0);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
@@ -51,6 +52,14 @@ class ArticleController extends Controller
             ->getDoctrine()
             ->getRepository(Article::class)
             ->find($id);
+        $article->setViewCount($article->getViewCount() + 1);
+        /**
+         * Here we send it the count to the dataBase!
+         */
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($article);
+        $entityManager->flush();
+
 
         return $this->render('article/article.html.twig', ['article' => $article]);
     }
@@ -145,18 +154,19 @@ class ArticleController extends Controller
 
     /**
      * @Route("/myArticles", name="myArticles")
-     * @Security("is_granted('ISIS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      *
      */
     public function myArticles()
     {
-        /** @var User $currentUserId */
+//        /** @var User $currentUserId */
 //        $currentUserId = $currentUserId->getId();
-        $currentUserId = $this->getUser()->getId();
+//        $currentUserId = $this->getUser()->getId();
 
-
-        $this->getDoctrine()
+       $articles = $this->getDoctrine()
             ->getRepository(Article::class)
-            ->findBy(['']);
+            ->findBy(['author' => $this->getUser()]);
+
+        return $this->render('article/myArticles.html.twig', ['articles' => $articles]);
     }
 }

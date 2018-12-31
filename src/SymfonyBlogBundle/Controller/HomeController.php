@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyBlogBundle\Entity\Article;
 
-class DefaultController extends Controller
+class HomeController extends Controller
 {
     /**
      * @Route("/", name="blog_index")
@@ -17,7 +17,7 @@ class DefaultController extends Controller
         $articles = $this
             ->getDoctrine()
             ->getRepository(Article::class)
-            ->findAll();
+            ->findBy([], ['viewCount' => 'desc', 'dateAdded' => 'desc']);
 
         return $this->render('default/index.html.twig',
             ['articles' => $articles]);

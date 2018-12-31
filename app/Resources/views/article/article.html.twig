@@ -8,7 +8,7 @@
                     <header>
                         <h2>{{ article.title }}</h2>
                     </header>
-
+                    <img src="{{ article.imageUrl }}" width="400" height="200">
                     <p>
                         {{ article.content }}
                     </p>
@@ -19,7 +19,7 @@
 
                     <footer>
                         <div class="pull-right">
-                            {% if app.getUser() and (app.getUser().isAuthor(article) or app.getUser().isAdmin()) %}
+                            {% if app.getUser() and app.getUser().isAdmin() %}
                             <a class="btn btn-danger btn-xs" href="{{ path('article_delete', {'id': article.id}) }}">delete &raquo;</a>
                             <a class="btn btn-success btn-xs" href="{{ path('article_edit', {'id': article.id}) }}">edit &raquo;</a>
                             {% endif %}

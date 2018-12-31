@@ -62,6 +62,20 @@ class Article
      */
     private $author;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_url", type="text", nullable=false)
+     */
+    private $imageUrl;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="view_count", type="float")
+     */
+    private $viewCount;
+
 
     public function __construct()
     {
@@ -205,6 +219,38 @@ class Article
     public function getDateAdded()
     {
         return $this->dateAdded;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * @param string $imageUrl
+     */
+    public function setImageUrl(string $imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
+    }
+
+    /**
+     * @return float
+     */
+    public function getViewCount()
+    {
+        return $this->viewCount;
+    }
+
+    /**
+     * @param float $viewCount
+     */
+    public function setViewCount(float $viewCount)
+    {
+        $this->viewCount = $viewCount;
     }
 }
 

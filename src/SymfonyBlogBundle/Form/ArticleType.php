@@ -16,7 +16,8 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('content', TextType::class);
+            ->add('content', TextType::class)
+        ->add('image_url', TextType::class);
     }
 
     /**

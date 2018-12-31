@@ -45,6 +45,31 @@ class User implements UserInterface
     private $fullName;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_created", type="datetime")
+     */
+    private $dateCreated;
+
+    /**
+     * @return string
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * @param \DateTime $dateCreated
+     * @return User
+     */
+    public function setDateCreated(\DateTime $dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+        return $this;
+    }
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Article", mappedBy="author")
@@ -63,10 +88,13 @@ class User implements UserInterface
     private $roles;
 
 
+
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->roles = new ArrayCollection();
+        $this->dateCreated = new \DateTime('now');
     }
 
     /**

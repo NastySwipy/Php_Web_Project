@@ -4,6 +4,8 @@ namespace SymfonyBlogBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyBlogBundle\Entity\Article;
@@ -24,8 +26,21 @@ class ArticleController extends Controller
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $file */
+            $file = $form->getData()->getImage();
+
+            $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
+
+            try {
+                $file->move($this->getParameter('article_directory'), $fileName);
+            } catch (FileException $e) {
+            }
+
             $currentUser = $this->getUser();
+            $article->setImage($fileName);
             $article->setAuthor($currentUser);
             $article->setViewCount(0);
             $entityManager = $this->getDoctrine()->getManager();
@@ -96,9 +111,22 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $file */
+            $file = $form->getData()->getImage();
+
+            $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
+
+
+            try {
+                $file->move($this->getParameter('article_directory'), $fileName);
+            } catch (FileException $e) {
+            }
+
             $currentUser = $this->getUser();
             $article->setAuthor($currentUser);
             $article->setDateAdded(new \DateTime('now'));
+            $article->setImage($fileName);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->merge($article);
             $entityManager->flush();

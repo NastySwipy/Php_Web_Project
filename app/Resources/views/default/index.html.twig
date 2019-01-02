@@ -9,9 +9,10 @@
                         <header>
                             <h2>{{ article.title }}</h2>
                         </header>
-                       <a href="{{ path('article_view', {'id': article.id}) }}"><img src="{{ article.imageUrl }}" width="200" height="100"></a>
+                       <a href="{{ path('article_view', {'id': article.id}) }}">
+                           <img src="{{ asset('uploads/images/' ~ article.image) }}" width="350" height="200"></a>
                         <p>
-                            {{ article.summary }}
+                            {{ article.content[:150] ~ '...' }}
                         </p>
 
                         <small class="author">

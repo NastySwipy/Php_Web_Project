@@ -8,7 +8,8 @@
                     <header>
                         <h2>{{ article.title }}</h2>
                     </header>
-                    <img src="{{ article.imageUrl }}" width="400" height="200">
+                    <img src="{{ asset('uploads/images/' ~ article.image) }}" width="400" height="250">
+                    <a href=""><i class="glyphicon glyphicon-thumbs-up"></i></a>
                     <p>
                         {{ article.content }}
                     </p>

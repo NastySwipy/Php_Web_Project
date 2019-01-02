@@ -65,9 +65,9 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="image_url", type="text", nullable=false)
+     * @ORM\Column(name="image", type="text", nullable=false)
      */
-    private $imageUrl;
+    private $image;
 
     /**
      * @var float
@@ -222,22 +222,6 @@ class Article
     }
 
     /**
-     * @return string
-     */
-    public function getImageUrl()
-    {
-        return $this->imageUrl;
-    }
-
-    /**
-     * @param string $imageUrl
-     */
-    public function setImageUrl(string $imageUrl)
-    {
-        $this->imageUrl = $imageUrl;
-    }
-
-    /**
      * @return float
      */
     public function getViewCount()
@@ -252,5 +236,23 @@ class Article
     {
         $this->viewCount = $viewCount;
     }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+
 }
 

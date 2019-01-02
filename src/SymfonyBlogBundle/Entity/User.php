@@ -52,7 +52,7 @@ class User implements UserInterface
     private $dateCreated;
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getDateCreated()
     {

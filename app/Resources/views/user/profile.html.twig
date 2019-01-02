@@ -11,6 +11,6 @@
         <h3>Full Name: {{ user.fullName }}</h3>
     </div>
     <div>
-        <h3>Join Date: {{ user.dateCreated.format('Y-m-d')}} at {{ user.dateCreated.format('H:i')}}</h3>
+        <h3>Join Date: {{ user.dateCreated|date('d-m-Y')}} at {{ user.dateCreated.format('H:i')}}</h3>
     </div>
 {% endblock %}

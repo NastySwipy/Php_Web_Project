@@ -4,7 +4,7 @@
 
     <div class="container body-content span=8 offset=2">
         <div class="well">
-            <form class="form-horizontal" action="{{ path('article_create') }}" method="POST">
+            <form class="form-horizontal" enctype="multipart/form-data" action="{{ path('article_create') }}" method="POST">
                 <fieldset>
                     <legend>New Article</legend>
 
@@ -25,10 +25,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="article_imageUrl">Article Image</label>
+                        <label class="col-sm-4 control-label" for="article_image">Article Image</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="article_imageUrl" placeholder="Image Url"
-                                   name="article[image_url]">
+                            <input type="file" accept=".jpg, .png" class="form-control" id="article_image" placeholder="Image"
+                                   name="article[image]">
                         </div>
                     </div>
 

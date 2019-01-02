@@ -197,4 +197,15 @@ class ArticleController extends Controller
 
         return $this->render('article/myArticles.html.twig', ['articles' => $articles]);
     }
+
+    /**
+     * @Route("/article/like/{id}", name="article_likes")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function likes($id)
+    {
+        return $this->redirectToRoute('blog_index');
+    }
 }

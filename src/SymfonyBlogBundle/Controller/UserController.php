@@ -37,7 +37,7 @@ class UserController extends Controller
             $currentUser = $this
                 ->getDoctrine()
                 ->getRepository(User::class)
-                ->findBy(['email' => $emailInput]);
+                ->findOneBy(['email' => $emailInput]);
 
             if ([] !== $currentUser) {
                 $this->addFlash('warning', 'This email: ' . $emailInput . ' already exists!');

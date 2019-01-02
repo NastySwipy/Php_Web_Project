@@ -9,7 +9,16 @@ use SymfonyBlogBundle\Entity\Article;
 class HomeController extends Controller
 {
     /**
-     * @Route("/", name="blog_index")
+     * @Route("/", name="slider_index")
+     */
+    public function sliderAction()
+    {
+        return $this->render('default/sliderIndex.html.twig');
+
+    }
+
+    /**
+     * @Route("/SkyBlog", name="blog_index")
      */
     public function indexAction()
     {

@@ -9,13 +9,14 @@
                         <h2>{{ article.title }}</h2>
                     </header>
                     <img src="{{ asset('uploads/images/' ~ article.image) }}" width="400" height="250">
-                    <a href=""><i class="glyphicon glyphicon-thumbs-up"></i></a>
+
                     <p>
                         {{ article.content }}
                     </p>
 
                     <small class="author">
                         {{ article.author.fullName }}
+                        <a href="{{ path('article_likes', {'id': article.id}) }}"><i class="glyphicon glyphicon-thumbs-up"></i></a>
                     </small>
 
                     <footer>

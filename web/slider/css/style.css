@@ -146,10 +146,11 @@ svg {
 .slide:nth-child(1) .slide__bg {
   left: 0;
   background-image: url('Paragliding_Cappadocia.jpg');
-  /*background-image: url("http://www.prodijee.com/wp-content/uploads/2015/07/Triple-Infinity-Tumbling-World-Record-2015-Turkey-Cappadocia.jpg.jpg");*/
+  /*background-image: url("http://www.prodijee.com/wp-content/uploads/2015/07/Triple-Infinity-Tumbling-World-Record-2015-Turkey-Cappadocia.jpg");*/
 }
 .slide:nth-child(1) .slide__overlay-path {
-  fill: #e99c7e;
+  /*fill: #e99c7e;*/
+  fill: #5eb5e0;
 }
 @media (max-width: 991px) {
   .slide:nth-child(1) .slide__text {

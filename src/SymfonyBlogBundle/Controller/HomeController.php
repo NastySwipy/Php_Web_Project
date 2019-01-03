@@ -31,4 +31,19 @@ class HomeController extends Controller
         return $this->render('default/index.html.twig',
             ['articles' => $articles]);
     }
+
+    /**
+     * @Route("/SkyStore", name="store_index")
+     */
+    public function storeIndexAction()
+    {
+
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBy([], ['viewCount' => 'desc', 'dateAdded' => 'desc']);
+
+        return $this->render('default/storeIndex.html.twig',
+            ['articles' => $articles]);
+    }
 }

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyBlogBundle\Entity\Article;
+use SymfonyBlogBundle\Entity\Comment;
 use SymfonyBlogBundle\Entity\User;
 use SymfonyBlogBundle\Form\ArticleType;
 
@@ -60,23 +61,28 @@ class ArticleController extends Controller
      */
     public function viewArticle($id)
     {
-        /**
-         * @var Article $article
-         */
+        /** @var Article $article */
         $article = $this
             ->getDoctrine()
             ->getRepository(Article::class)
             ->find($id);
+
+
+        $comments = $this->getDoctrine()
+            ->getRepository(Comment::class)
+            ->findBy(['article' => $id], ['dateAdded' => 'asc']);
+
         $article->setViewCount($article->getViewCount() + 1);
         /**
          * Here we send it the count to the dataBase!
          */
         $entityManager = $this->getDoctrine()->getManager();
+
         $entityManager->persist($article);
         $entityManager->flush();
 
-
-        return $this->render('article/article.html.twig', ['article' => $article]);
+        return $this->render('article/article.html.twig',
+            ['article' => $article, 'comments' => $comments]);
     }
 
     /**

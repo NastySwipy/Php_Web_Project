@@ -41,13 +41,19 @@ class UserController extends Controller
 
             if ([] !== $currentUser) {
                 $this->addFlash('warning', 'This email: ' . $emailInput . ' already exists!');
-                return $this->render('user/register.html.twig');
+                return $this->render('user/register.html.twig', ['form' => $form->createView()]);
             }
+
 
             if (strlen($passwordInput) < 4) {
                 $this->addFlash('warning', 'Password is too short!');
-                return $this->render('user/register.html.twig');
+                return $this->render('user/register.html.twig', ['form' => $form->createView()]);
             }
+
+//            if ($passwordInput['first'] !== $passwordInput['second']) {
+//                $this->addFlash('warning', 'Password don\'t match!');
+//                return $this->render('user/register.html.twig', ['form' => $form->createView()]);
+//            }
 
             $password = $this->get('security.password_encoder')
             ->encodePassword($user, $user->getPassword());
@@ -69,7 +75,7 @@ class UserController extends Controller
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render('user/register.html.twig');
+        return $this->render('user/register.html.twig', ['form' => $form->createView()]);
     }
 
     /**

@@ -5,7 +5,6 @@ namespace SymfonyBlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyBlogBundle\Entity\Article;
-use SymfonyBlogBundle\Entity\Product;
 
 class HomeController extends Controller
 {

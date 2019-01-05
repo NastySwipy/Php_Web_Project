@@ -16,14 +16,33 @@
 
                     <small class="author">
                         {{ article.author.fullName }}
-                        <a href="{{ path('article_likes', {'id': article.id}) }}"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+                        <a href="{{ path('article_likes', {'id': article.id}) }}"><i
+                                    class="glyphicon glyphicon-thumbs-up"></i></a>
                     </small>
+
+                    {% if app.getUser() %}
+                    <button class="btn btn-info btn-sm" id="btnComment">
+                        <span class="glyphicon glyphicon-comment"></span> Comment</button>
+                    {% endif %}
+
+                    <div id="form">
+                    </div>
+                    <br>
+                    {# @var comment \SymfonyBlogBundle\Entity\Comment #}
+                    {% for comment in comments %}
+                        <div>
+                            <strong>{{ comment.author.shortName }}</strong> {{ comment.content }}
+                            <p><small class="author">{{ comment.dateAdded|date('F jS \\a\\t g:ia') }}</small></p>
+                        </div>
+                    {% endfor %}
 
                     <footer>
                         <div class="pull-right">
                             {% if app.getUser() and app.getUser().isAdmin() %}
-                            <a class="btn btn-danger btn-xs" href="{{ path('article_delete', {'id': article.id}) }}">delete &raquo;</a>
-                            <a class="btn btn-success btn-xs" href="{{ path('article_edit', {'id': article.id}) }}">edit &raquo;</a>
+                                <a class="btn btn-danger btn-xs"
+                                   href="{{ path('article_delete', {'id': article.id}) }}">delete &raquo;</a>
+                                <a class="btn btn-success btn-xs" href="{{ path('article_edit', {'id': article.id}) }}">edit
+                                    &raquo;</a>
                             {% endif %}
                             <a class="btn btn-default btn-xs" href="{{ path('blog_index') }}">back &raquo;</a>
                         </div>
@@ -32,5 +51,27 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let form = $(`
+    <form method="post" action="{{ path('add_comment', {'id': article.id}) }}">
+        <div class="form-group">
+                        <!--<label class="col-sm-4 control-label" for="article_content">Comment Content</label>-->
+                 <div class="col-sm-6">
+               <textarea class="form-control" rows="6" id="comment_content" placeholder="Write a comment..." name="comment[content]"></textarea>
+             <input class="btn btn-info btn-sm" type="submit" value="Add" />
+          </div>
+        </div>
+    </form>
+        `);
+
+        $('#btnComment').click(function (e) {
+            e.preventDefault();
+            $('#form').append(form);
+            //Hide was forget, and was needed to click twice!
+            $('#form').hide(form);
+            $('#form').toggle();
+        })
+    </script>
 {% endblock %}
 

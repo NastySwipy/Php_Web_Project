@@ -52,24 +52,6 @@ class User implements UserInterface
     private $dateCreated;
 
     /**
-     * @return \DateTime
-     */
-    public function getDateCreated()
-    {
-        return $this->dateCreated;
-    }
-
-    /**
-     * @param \DateTime $dateCreated
-     * @return User
-     */
-    public function setDateCreated(\DateTime $dateCreated)
-    {
-        $this->dateCreated = $dateCreated;
-        return $this;
-    }
-
-    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Article", mappedBy="author")
@@ -87,14 +69,57 @@ class User implements UserInterface
      */
     private $roles;
 
-
-
+    /**
+     * @var ArrayCollection| Comment[]
+     *
+     *@ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Comment", mappedBy="author")
+     */
+    private $comments;
 
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->roles = new ArrayCollection();
         $this->dateCreated = new \DateTime('now');
+        $this->comments = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection|Comment[]
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Comment|null $comment
+     * @return User
+     */
+    public function addComment(Comment $comment = null)
+    {
+        $this->comments[] = $comment;
+        return $this;
+    }
+
+
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * @param \DateTime $dateCreated
+     * @return User
+     */
+    public function setDateCreated(\DateTime $dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+        return $this;
     }
 
     /**

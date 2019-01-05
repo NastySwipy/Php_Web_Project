@@ -2,6 +2,7 @@
 
 namespace SymfonyBlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -76,11 +77,39 @@ class Article
      */
     private $viewCount;
 
+    /**
+     * @var ArrayCollection|Comment[]
+     *
+     *@ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Comment", mappedBy="article")
+     */
+    private $comments;
+
 
     public function __construct()
     {
         $this->dateAdded = new \DateTime('now');
+        $this->comments = new ArrayCollection();
     }
+
+    /**
+     * @return ArrayCollection|Comment[]
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Comment|null $comment
+     * @return Article
+     */
+    public function addComment(Comment $comment = null)
+    {
+        $this->comments[] = $comment;
+        return $this;
+    }
+
+
 
     /**
      * @return User

@@ -10,8 +10,4 @@ namespace SymfonyBlogBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAll()
-    {
-
-    }
 }

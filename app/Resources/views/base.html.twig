@@ -26,6 +26,9 @@
                 <div class="navbar-header">
                     <a href="{{ path('slider_index') }}" class="navbar-brand">Main</a>
                     <a href="{{ path('blog_index') }}" class="navbar-brand">SkyLabBlog</a>
+                    {% if app.getUser() and app.getUser().isAdmin() %}
+                        <a href="{{ path('admin') }}" class="navbar-brand">Admin</a>
+                    {% endif %}
 
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>

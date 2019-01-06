@@ -102,6 +102,7 @@ class ArticleController extends Controller
             ->getDoctrine()
             ->getRepository(Article::class)
             ->find($id);
+        $currentImage = $article->getImage();
 
         if ($article === null) {
             return $this->redirectToRoute('blog_index');
@@ -121,18 +122,20 @@ class ArticleController extends Controller
             /** @var UploadedFile $file */
             $file = $form->getData()->getImage();
 
-            $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
-
-
-            try {
-                $file->move($this->getParameter('article_directory'), $fileName);
-            } catch (FileException $e) {
+            if (null !== $file) {
+                $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
+                try {
+                    $file->move($this->getParameter('article_directory'), $fileName);
+                } catch (FileException $e) {
+                }
+                $article->setImage($fileName);
+            }else{
+                $article->setImage($currentImage);
             }
 
             $currentUser = $this->getUser();
             $article->setAuthor($currentUser);
             $article->setDateAdded(new \DateTime('now'));
-            $article->setImage($fileName);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->merge($article);
             $entityManager->flush();

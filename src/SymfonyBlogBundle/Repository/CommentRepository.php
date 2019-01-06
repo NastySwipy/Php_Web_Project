@@ -2,6 +2,8 @@
 
 namespace SymfonyBlogBundle\Repository;
 
+use SymfonyBlogBundle\Entity\Article;
+
 /**
  * CommentRepository
  *
@@ -10,4 +12,13 @@ namespace SymfonyBlogBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllComments(Article $article)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.article = :article')
+            ->setParameter('article', $article)
+            ->addOrderBy('c.dateAdded', 'ASC' )
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -54,7 +54,7 @@ class User implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Article", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Article", mappedBy="author", cascade={"remove"})
      */
     private $articles;
 
@@ -72,7 +72,7 @@ class User implements UserInterface
     /**
      * @var ArrayCollection| Comment[]
      *
-     *@ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Comment", mappedBy="author")
+     *@ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Comment", mappedBy="author", cascade={"remove"})
      */
     private $comments;
 

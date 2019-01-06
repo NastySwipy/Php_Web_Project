@@ -80,7 +80,7 @@ class Article
     /**
      * @var ArrayCollection|Comment[]
      *
-     *@ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Comment", mappedBy="article")
+     *@ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Comment", mappedBy="article", cascade={"remove"})
      */
     private $comments;
 

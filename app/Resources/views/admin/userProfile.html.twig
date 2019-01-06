@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1>{{ user.shortName }}, Profile</h1>
+    <hr>
+    {# @var user \SymfonyBlogBundle\Entity\User #}
+    <table style="width: 40%">
+        <tr>
+            <td><strong>Full Name: </strong>{{ user.fullName }}</td>
+        </tr>
+        <tr>
+            <td><strong>Email: </strong>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <td><strong>Join Date: </strong>{{ user.dateCreated|date('Y F jS \\a\\t g:ia') }}</td>
+        </tr>
+        <tr>
+            {% if user.admin %}
+            <td><strong>User Type: </strong>Administrator</td>
+            {% else %}
+            <td><strong>User Type: </strong>User</td>
+            {% endif %}
+        </tr>
+    </table>
+    <br>
+    <a class="btn btn-default btn-xs" href="{{ path('admin') }}">back &raquo;</a>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<h1>Registered Users</h1>
+    <hr>
+    <table style="width: 40%">
+        <tr>
+            <th>Name</th>
+            <th>User Type</th>
+        </tr>
+        <td><br></td>
+        {# @var user \SymfonyBlogBundle\Entity\User #}
+        {% for user in users %}
+            <tr>
+                <td><p>{{ user.fullName }}</p></td>
+                {% if user.admin %}
+                    <td><p>Administrator</p></td>
+                {% else %}
+                    <td><p>User</p></td>
+                {% endif %}
+                <td><p><a href="{{ path('admin_user_profile', {'id': user.id}) }}" class="btn btn-info btn-sm">View</a>
+                    </p></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

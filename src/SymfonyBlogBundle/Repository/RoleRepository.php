@@ -2,6 +2,7 @@
 
 namespace SymfonyBlogBundle\Repository;
 
+
 /**
  * RoleRepository
  *
@@ -10,4 +11,31 @@ namespace SymfonyBlogBundle\Repository;
  */
 class RoleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function makeAdmin($id)
+    {
+
+        $em = $this->getEntityManager();
+
+        $RAW_QUERY = 'UPDATE `symfony_blog`.`users_roles` SET `role_id`= 1 WHERE  `user_id`= :id AND `role_id`=2';
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        // Set parameters
+        $statement->bindValue('id', $id);
+        $statement->execute();
+
+    }
+
+    public function makeUser($id)
+    {
+
+        $em = $this->getEntityManager();
+
+        $RAW_QUERY = 'UPDATE `symfony_blog`.`users_roles` SET `role_id`= 2 WHERE  `user_id`= :id AND `role_id`=1';
+
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        // Set parameters
+        $statement->bindValue('id', $id);
+        $statement->execute();
+
+    }
 }

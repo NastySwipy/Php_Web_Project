@@ -15,13 +15,26 @@
             <td><strong>Join Date: </strong>{{ user.dateCreated|date('Y F jS \\a\\t g:ia') }}</td>
         </tr>
         <tr>
+            <td><strong>Total Articles: </strong>{{ user.articles.count }}</td>
+        </tr>
+        <tr>
+            <td><strong>Total Comments: </strong>{{ user.comments.count }}</td>
+        </tr>
+        <tr>
             {% if user.admin %}
             <td><strong>User Type: </strong>Administrator</td>
             {% else %}
             <td><strong>User Type: </strong>User</td>
             {% endif %}
         </tr>
+
     </table>
     <br>
     <a class="btn btn-default btn-xs" href="{{ path('admin') }}">back &raquo;</a>
+
+    {% if user.admin %}
+        <a href="{{ path('make_user_user', {'id': user.id}) }}" class="btn btn-danger btn-xs">Make User</a>
+    {% else %}
+        <a href="{{ path('make_user_admin', {'id': user.id}) }}" class="btn btn-success btn-xs">Make Admin</a>
+    {% endif %}
 {% endblock %}

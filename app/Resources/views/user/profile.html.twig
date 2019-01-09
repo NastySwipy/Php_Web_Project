@@ -13,4 +13,5 @@
     <div>
         <h3>Join Date: {{ user.dateCreated|date('d-m-Y')}} at {{ user.dateCreated.format('H:i')}}</h3>
     </div>
+    <a href={{ path('user_messageBox') }}><span class="glyphicon glyphicon-envelope"></span> ({{ countInbox }})</a>
 {% endblock %}

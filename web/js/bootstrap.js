@@ -3892,3 +3892,11 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+function showHideFunc() {
+  let x = document.getElementById('showHideDiv');
+  if (x.style.visibility === 'hidden') {
+    x.style.visibility = 'visible';
+  } else {
+    x.style.visibility = 'hidden';
+  }
+}

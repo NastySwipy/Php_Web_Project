@@ -16,8 +16,10 @@
 
                         <footer>
                             <div class="pull-right">
-                                <a class="btn btn-danger btn-xs" href="{{ path('article_delete', {'id': article.id}) }}">delete &raquo;</a>
-                                <a class="btn btn-success btn-xs" href="{{ path('article_edit', {'id': article.id}) }}">edit &raquo;</a>
+                                <a class="btn btn-info btn-xs" href="{{ path('article_delete', {'id': article.id}) }}">
+                                    <i class="glyphicon glyphicon-remove-circle"></i> delete</a>
+                                <a class="btn btn-info btn-xs" href="{{ path('article_edit', {'id': article.id}) }}">
+                                    <i class="glyphicon glyphicon-edit"></i> edit</a>
                                 {#<a class="btn btn-default btn-xs"#}
                                    {#href="{{ path('blog_index')}}">Back &raquo;</a>#}
                             </div>

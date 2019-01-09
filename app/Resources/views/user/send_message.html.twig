@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <div id="showHideDiv">
+        <form method="post">
+            About: <input type="text" name="message[about]"><br/>
+            Content: <textarea rows="4" name="message[content]"></textarea><br/>
+            {{ form_row(form._token) }}
+            <button type="submit" value="Send" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-send"></i> Send</button>
+
+        </form>
+    </div>
+{% endblock %}
+

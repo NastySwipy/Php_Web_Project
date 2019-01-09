@@ -13,6 +13,11 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
         <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+        <script>
+            setTimeout(function () {
+                $('#msg').fadeOut();
+            }, 3000)
+        </script>
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
@@ -43,6 +48,9 @@
                                 <a href="{{ path('user_profile') }}">
                                     {{ app.user.shortName }} Profile
                                 </a>
+                            </li>
+                            <li>
+                                <a href={{ path('user_messageBox') }}><span class="glyphicon glyphicon-envelope"></span></a>
                             </li>
                             <li>
                                 <a href="{{ path('myArticles') }}">

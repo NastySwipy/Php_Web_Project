@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    {% for message in pagination %}
+        <div>
+            <p><strong>From: </strong> {{ message.sender.shortName }}</p>
+            <p><strong>Mail: </strong> {{ message.sender.email }}</p>
+            <p><strong>Date: </strong>{{ message.dateAdded|date('Y F jS \\a\\t g:ia', 'Europe/Sofia') }}</p>
+            <a href="{{ path('user_readMessage', {'id': message.id}) }}" class="btn btn-info btn-xs">
+                <i class="glyphicon glyphicon-sunglasses"></i> Read</a>
+            {% if message.readed == false %}
+            <p><span style="float: right; color: red">Unread </span></p>
+            {% else %}
+                <p><span style="float: right; color: green">Read </span></p>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
+

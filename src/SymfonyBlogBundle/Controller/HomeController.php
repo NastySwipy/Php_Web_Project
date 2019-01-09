@@ -3,6 +3,7 @@
 namespace SymfonyBlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyBlogBundle\Entity\Article;
 
@@ -19,8 +20,10 @@ class HomeController extends Controller
 
     /**
      * @Route("/SkyBlog", name="blog_index")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         
         $articles = $this
@@ -28,8 +31,17 @@ class HomeController extends Controller
             ->getRepository(Article::class)
             ->findBy([], ['viewCount' => 'desc', 'dateAdded' => 'desc']);
 
+        $paginator  = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $articles, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
+
+
         return $this->render('default/index.html.twig',
-            ['articles' => $articles]);
+            ['pagination' => $pagination]);
     }
 
     /**

@@ -12,7 +12,7 @@
             <td><strong>Email: </strong>{{ user.email }}</td>
         </tr>
         <tr>
-            <td><strong>Join Date: </strong>{{ user.dateCreated|date('Y F jS \\a\\t g:ia') }}</td>
+            <td><strong>Join Date: </strong>{{ user.dateCreated|date('Y F jS \\a\\t g:ia', 'Europe/Sofia') }}</td>
         </tr>
         <tr>
             <td><strong>Total Articles: </strong>{{ user.articles.count }}</td>
@@ -30,7 +30,7 @@
 
     </table>
     <br>
-    <a class="btn btn-default btn-xs" href="{{ path('admin') }}">back &raquo;</a>
+    <a class="btn btn-info btn-xs" href="{{ path('admin') }}"><i class="glyphicon glyphicon-home"></i> back</a>
 
     {% if user.admin %}
         <a href="{{ path('make_user_user', {'id': user.id}) }}" class="btn btn-danger btn-xs">Make User</a>

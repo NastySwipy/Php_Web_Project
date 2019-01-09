@@ -76,13 +76,50 @@ class User implements UserInterface
      */
     private $comments;
 
+
+    /**
+     * @var ArrayCollection|Message[]
+     *
+     * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Message", mappedBy="sender")
+     */
+    private $senders;
+
+    /**
+     * @var ArrayCollection|Message[]
+     *
+     * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Message", mappedBy="recipient")
+     */
+    private $recipients;
+
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->roles = new ArrayCollection();
         $this->dateCreated = new \DateTime('now');
         $this->comments = new ArrayCollection();
+        $this->senders = new ArrayCollection();
+        $this->recipients = new ArrayCollection();
     }
+
+
+    /**
+     * @return ArrayCollection|Message[]
+     */
+    public function getSendersMessages()
+    {
+        return $this->senders;
+    }
+
+    /**
+     * @return ArrayCollection|Message[]
+     */
+    public function getRecipientsMessages()
+    {
+        return $this->recipients;
+    }
+
+
 
     /**
      * @return ArrayCollection|Comment[]

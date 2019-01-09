@@ -2,6 +2,7 @@
 
 namespace SymfonyBlogBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,8 @@ class CommentController extends Controller
 {
     /**
      * @Route("/article/{id}/comment", name="add_comment")
+     *
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      *
      * @param Request $request
      * @param Article $article

@@ -5,6 +5,7 @@ namespace SymfonyBlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use SymfonyBlogBundle\Entity\Message;
 use SymfonyBlogBundle\Entity\Role;
 use SymfonyBlogBundle\Entity\User;
 use SymfonyBlogBundle\Form\UserType;
@@ -93,8 +94,16 @@ class UserController extends Controller
             ->getRepository(User::class)
             ->find($userId);
 
+        $unreadMsg = $this
+            ->getDoctrine()
+            ->getRepository(Message::class)
+            ->findBy(['recipient' => $userId ,'isReaded' => false ]);
 
-        return $this->render('user/profile.html.twig',
-            ['user' => $user]);
+        $countReceiveMsg = count($unreadMsg);
+
+        return $this->render('user/profile.html.twig', [
+                'user' => $user,
+                'countInbox' => $countReceiveMsg
+        ]);
     }
 }

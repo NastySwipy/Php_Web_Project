@@ -103,6 +103,8 @@ class ArticleController extends Controller
             ->getRepository(Article::class)
             ->find($id);
         $currentImage = $article->getImage();
+        $currentYtUrl = $article->getYtUrl();
+
 
         if ($article === null) {
             return $this->redirectToRoute('blog_index');
@@ -117,7 +119,9 @@ class ArticleController extends Controller
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
 
             /** @var UploadedFile $file */
             $file = $form->getData()->getImage();
@@ -132,6 +136,10 @@ class ArticleController extends Controller
             }else{
                 $article->setImage($currentImage);
             }
+            if ($form->getData()->getYtUrl() === null) {
+                $article->setYtUrl($currentYtUrl);
+            }
+
 
             $currentUser = $this->getUser();
             $article->setAuthor($currentUser);
@@ -140,7 +148,7 @@ class ArticleController extends Controller
             $entityManager->merge($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('blog_index');
+            return $this->redirectToRoute('myArticles');
         }
         return $this->render('article/edit.html.twig',
             ['form' => $form->createView(), 'article' => $article]);

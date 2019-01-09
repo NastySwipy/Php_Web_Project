@@ -283,10 +283,13 @@ class Article
 
     /**
      * @param string $ytUrl
+     * @return Article
      */
     public function setYtUrl($ytUrl)
     {
         $this->ytUrl = $ytUrl;
+
+        return $this;
     }
 
 

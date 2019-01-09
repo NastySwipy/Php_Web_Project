@@ -78,6 +78,13 @@ class Article
     private $viewCount;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="yt_url", type="string")
+     */
+    private $ytUrl;
+
+    /**
      * @var ArrayCollection|Comment[]
      *
      *@ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Comment", mappedBy="article", cascade={"remove"})
@@ -265,6 +272,24 @@ class Article
     {
         $this->viewCount = $viewCount;
     }
+
+    /**
+     * @return string
+     */
+    public function getYtUrl()
+    {
+        return $this->ytUrl;
+    }
+
+    /**
+     * @param string $ytUrl
+     */
+    public function setYtUrl($ytUrl)
+    {
+        $this->ytUrl = $ytUrl;
+    }
+
+
 
     /**
      * @return string

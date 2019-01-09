@@ -3,7 +3,7 @@
 
 {% block main %}
     {% for msg in app.session.flashBag.get('message') %}
-        <div id="msg" class="alert alert-success">
+        <div id="msg" class="alert alert-success" id="top">
             <button type="button" class="close" data-dismiss="alert">x</button>
             {{ msg }}
         </div>
@@ -11,7 +11,7 @@
     <div class="container body-content">
         <div class="row">
             <div class="col-md-12">
-                <article>
+                <article id="article">
                     <header>
                         <h2>{{ article.title }}</h2>
                     </header>
@@ -37,6 +37,7 @@
                             <a class="btn btn-info btn-xs"
                                href="{{ path('article_delete', {'id': article.id}) }}"><i class="glyphicon glyphicon-remove-circle"></i> delete</a>
                             <a class="btn btn-info btn-xs" href="{{ path('article_edit', {'id': article.id}) }}"><i class="glyphicon glyphicon-edit"></i> edit</a>
+                            <a class="btn btn-info btn-xs" href="#watchVideo"><i class="glyphicon glyphicon-facetime-video"></i> Video</a>
                         {% endif %}
                         <a class="btn btn-info btn-xs" href="{{ path('blog_index') }}"><i class="glyphicon glyphicon-home"></i> back</a>
                     </div>
@@ -47,11 +48,16 @@
                     {# @var comment \SymfonyBlogBundle\Entity\Comment #}
                     {% for comment in comments %}
                         <div>
-                            <a href="{{ path('user_message', {'id': comment.author.id, 'articleId': article.id}) }}"> <strong>{{ comment.author.shortName }}: </strong></a> <span style="font-style: oblique">{{ comment.content }}</span>
+                            <a href="{{ path('user_message', {'id': comment.author.id, 'articleId': article.id}) }}">
+                                <strong><i class="glyphicon glyphicon-envelope"></i> {{ comment.author.shortName }}: </strong></a> <span style="font-style: oblique">{{ comment.content }}</span>
                             <p><small class="author">{{ comment.dateAdded|date('F jS \\a\\t g:ia') }}</small></p>
                         </div>
                     {% endfor %}
-
+                    <h3 id="watchVideo">Watch Video</h3>
+                    {{ article.ytUrl | raw }}
+                    <p>
+                    <a class="btn btn-info btn-xs" href="#top"><i class="glyphicon glyphicon glyphicon-eye-open"></i> Back</a>
+                    </p>
                     <footer>
 
                     </footer>

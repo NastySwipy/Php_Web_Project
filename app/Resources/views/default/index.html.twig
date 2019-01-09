@@ -38,4 +38,6 @@
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
+        <a class="btn btn-info btn-xs" href="{{ path('blog_index') }}"><i class="glyphicon glyphicon-filter"></i>ViewCount</a>
+        <a class="btn btn-info btn-xs" href="{{ path('blog_index_orderLatest') }}"><i class="glyphicon glyphicon-filter"></i>Latest</a>
 {% endblock %}

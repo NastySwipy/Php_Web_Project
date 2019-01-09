@@ -7060,3 +7060,14 @@ article .author  {
   width: 50px;
   height: 50px;
 }
+.badge {
+  margin-bottom: 5px;
+  position: sticky;
+}
+.badge > .glyphicon {
+  position: absolute;
+  top: -5px;
+  background: #ffffff;
+  padding: 5px;
+  border-radius:50%;
+}

@@ -45,6 +45,66 @@ class HomeController extends Controller
     }
 
     /**
+     * @Route("/SkyBlog/orderByLatest", name="blog_index_orderLatest")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexActionOrderLatest(Request $request)
+    {
+
+
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBy([], ['dateAdded' => 'desc', 'viewCount' => 'desc']);
+
+
+        $paginator  = $this->get('knp_paginator');
+
+
+        $pagination = $paginator->paginate(
+            $articles, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
+
+
+
+        return $this->render('default/index.html.twig',
+            ['pagination' => $pagination]);
+    }
+
+    /**
+     * @Route("/SkyBlog/orderByComments", name="blog_index_orderComments")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexActionOrderComments(Request $request)
+    {
+
+
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBy([], ['comments' => 'desc', 'viewCount' => 'desc']);
+
+
+        $paginator  = $this->get('knp_paginator');
+
+
+        $pagination = $paginator->paginate(
+            $articles, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
+
+
+
+        return $this->render('default/index.html.twig',
+            ['pagination' => $pagination]);
+    }
+
+    /**
      * @Route("/SkyStore", name="store_index")
      */
     public function storeIndexAction()

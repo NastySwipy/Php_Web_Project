@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container body-content">
+        <div class="row">
+            {# @var article \SymfonyBlogBundle\Entity\Article #}
+            {% for article in pagination %}
+                <div class="col-md-6">
+                    <article>
+                        <header>
+                            <h2>{{ article.title }}</h2>
+                        </header>
+
+                        <p>
+                            {{ article.ytUrl|replace({'<iframe width="853" height="480"' : '<iframe width="500" height="250"'})|raw}}
+                        </p>
+                        <small class="author">
+                            {{ article.author.fullName }}
+                        </small>
+                        <small class="author">
+                            Views: {{ article.viewCount }}
+                        </small>
+                        <footer>
+                            <div class="text-center">
+                                <a class="btn btn-info btn-xs"
+                                   href="{{ path('article_view', {'id': article.id}) }}"><i class="glyphicon glyphicon-sunglasses"></i> View Article</a>
+                            </div>
+                        </footer>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    <a class="btn btn-info btn-xs" href="{{ path('blog_videos') }}"><i class="glyphicon glyphicon-filter"></i>ViewCount</a>
+    <a class="btn btn-info btn-xs" href="{{ path('blog_videos_orderLatest') }}"><i class="glyphicon glyphicon-filter"></i>Latest</a>
+{% endblock %}
+

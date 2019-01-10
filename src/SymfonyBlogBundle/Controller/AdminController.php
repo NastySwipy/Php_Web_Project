@@ -93,4 +93,32 @@ class AdminController extends Controller
         return $this->render('admin/userProfile.html.twig',
             ['user' => $user]);
     }
+
+    /**
+     * @Route("/admin/userProfile/remove/{id}", name="remove_user")
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function removeUserAction($id)
+    {
+
+        $this->getDoctrine()->getRepository(Role::class)->removeUserRole($id);
+        $this->getDoctrine()->getRepository(Role::class)->removeUserComments($id);
+        $this->getDoctrine()->getRepository(Role::class)->removeUserMsg($id);
+        $this->getDoctrine()->getRepository(Role::class)->removeUserArticle($id);
+        $this->getDoctrine()->getRepository(Role::class)->removeUser($id);
+
+
+
+        $allUsers = $this
+            ->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
+
+        return $this->render('admin/index.html.twig',
+            [
+                'users' => $allUsers
+            ]);
+    }
 }

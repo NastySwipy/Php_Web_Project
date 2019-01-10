@@ -47,7 +47,7 @@ class UserController extends Controller
 
 
             if (strlen($passwordInput) < 4) {
-                $this->addFlash('warning', 'Password is too short!');
+                $this->addFlash('warning', 'Incorrect Password!');
                 return $this->render('user/register.html.twig', ['form' => $form->createView()]);
             }
 

@@ -36,5 +36,10 @@
         <a href="{{ path('make_user_user', {'id': user.id}) }}" class="btn btn-danger btn-xs">Make User</a>
     {% else %}
         <a href="{{ path('make_user_admin', {'id': user.id}) }}" class="btn btn-success btn-xs">Make Admin</a>
+        <a href="{{ path('remove_user', {'id': user.id}) }}" class="btn btn-warning btn-xs" onclick="return confirm('You\'r about to remove this user, Are you sure?')">Remove User</a>
     {% endif %}
+    <script>
+        function confirmFunc() {
+            confirm("Your about to delete this user, are you sure!?");
+        }
 {% endblock %}

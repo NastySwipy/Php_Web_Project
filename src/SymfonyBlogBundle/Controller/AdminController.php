@@ -107,6 +107,7 @@ class AdminController extends Controller
         $this->getDoctrine()->getRepository(Role::class)->removeUserComments($id);
         $this->getDoctrine()->getRepository(Role::class)->removeUserMsg($id);
         $this->getDoctrine()->getRepository(Role::class)->removeUserArticle($id);
+
         $this->getDoctrine()->getRepository(Role::class)->removeUser($id);
 
 

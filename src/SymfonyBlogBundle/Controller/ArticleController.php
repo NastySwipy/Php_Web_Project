@@ -33,6 +33,7 @@ class ArticleController extends Controller
             /** @var UploadedFile $file */
             $file = $form->getData()->getImage();
 
+
             $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
 
             try {

@@ -1,0 +1,64 @@
+{% extends 'baseStore.html.twig' %}
+
+{% block body %}
+    <h1>Product</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <th>Make</th>
+                <td>{{ product.make }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ product.model }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ product.price }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ product.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Isnew</th>
+                <td>{% if product.isNew %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Productlocationcontinent</th>
+                <td>{{ product.productLocationContinent }}</td>
+            </tr>
+            <tr>
+                <th>Productlocationcountry</th>
+                <td>{{ product.productLocationCountry }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <th>Imageurl</th>
+                <td>{{ product.imageUrl }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('SkyStore_Product_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('SkyStore_Product_edit', { 'id': product.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

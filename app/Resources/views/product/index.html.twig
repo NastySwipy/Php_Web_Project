@@ -1,0 +1,56 @@
+{% extends 'baseStore.html.twig' %}
+
+{% block body %}
+    <h1>Products list</h1>
+
+    <table border="2">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Isnew</th>
+                <th>Productlocationcontinent</th>
+                <th>Productlocationcountry</th>
+                <th>Description</th>
+                <th>Imageurl</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('SkyStore_Product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td>{{ product.make }}</td>
+                <td>{{ product.model }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{% if product.isNew %}Yes{% else %}No{% endif %}</td>
+                <td>{{ product.productLocationContinent }}</td>
+                <td>{{ product.productLocationCountry }}</td>
+                <td>{{ product.description[:100] ~ '...' }}</td>
+                {#<td>{{ product.imageUrl }}</td>#}
+                <td><img src="{{ product.imageUrl }}" alt="W3Schools.com" style="width:120px;height:50px;"></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('SkyStore_Product_show', { 'id': product.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('SkyStore_Product_edit', { 'id': product.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('SkyStore_Product_new') }}">Create a new product</a>
+        </li>
+    </ul>
+{% endblock %}

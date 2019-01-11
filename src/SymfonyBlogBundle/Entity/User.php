@@ -5,6 +5,8 @@ namespace SymfonyBlogBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * User
@@ -24,6 +26,11 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\Email(
+     *     message = "Invalid email.",
+     *     checkMX = true
+     * )
+     *
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
@@ -31,6 +38,20 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @Assert\NotNull()
+     * @Assert\Regex(
+     *     pattern="/^[a-z0-9]+$/",
+     *     match=true,
+     *     message="Please enter a valid password (small letters and digits)"
+     * )
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 10,
+     *      minMessage = "Your password must be at least 4 characters long",
+     *      maxMessage = "Your password cannot be longer than 10 characters"
+     * )
+     *
+     *
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
@@ -57,6 +78,13 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Article", mappedBy="author", cascade={"remove"})
      */
     private $articles;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Article", mappedBy="product", cascade={"remove"})
+     */
+    private $products;
 
     /**
      * @var ArrayCollection
@@ -95,6 +123,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->products = new ArrayCollection();
         $this->roles = new ArrayCollection();
         $this->dateCreated = new \DateTime('now');
         $this->comments = new ArrayCollection();
@@ -167,6 +196,7 @@ class User implements UserInterface
         return $this->articles;
     }
 
+
     /**
      * @param Article
      *
@@ -177,6 +207,27 @@ class User implements UserInterface
         $this->articles = $article;
         return $this;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param Product
+     *
+     * @return User
+     */
+    public function addProduct($product)
+    {
+        $this->products = $product;
+        return $this;
+    }
+
+
 
 
     /**

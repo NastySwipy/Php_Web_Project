@@ -2,15 +2,264 @@
 
 {% block body %}
     <h1>Product creation</h1>
+    <form class="form-horizontal" enctype="multipart/form-data" action="{{ path('SkyStore_new') }}" method="POST">
+        <fieldset>
+            <div class="col-lg-12 form-group margin50">
+                <label class="col-lg-2"  for="Name">Name</label>
+                <div class="col-lg-4">
+                    <input type="text" id="Name" name="product[productName]" placeholder="Product Name" class="form-control name">
+                </div>
+            </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+            <div class=" col-lg-12 form-group">
+                <label class="col-lg-2" for="ProductType">Product Type</label>
+                <div class="col-lg-4">
+                    <select id="productType" name="product[productType]" class="form-control product-type">
+                        {% for key,val in form.productType.vars.choices %}
+                            <option value="{{ val.value }}">{{ val.label }}</option>
+                            {#<option value="{{ val.value }}" {{  form.productType.vars.value == '' and key == 0 ? ' selected ' :(val.value == form.productType.vars.value ? ' selected ' : '') }}>{{ val.label | trans }}</option>#}
+                        {% endfor %}
 
-    <ul>
-        <li>
-            <a href="{{ path('SkyStore_Product_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="Manufacturer">Manufacturer</label>
+                <div class="col-lg-4">
+                    <input type="text" id="make" name="product[make]" placeholder="Product Manufacturer" class="form-control manufacturer">
+                    {#<select id="manufacturer" name="Manufacturer" class="form-control manufacturer">#}
+                        {#<option value="0">-Select-</option>#}
+                    {#</select>#}
+                    {#<p class="help-block"><a>Manufacturer Quick Add</a></p>#}
+                </div>
+            </div>
+
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="Model">Model</label>
+                <div class="col-lg-4">
+                    <input type="text" id="model" name="product[model]" placeholder="Product Model" class="form-control distributor">
+                    {#<select id="distributor" name="Distributor" class="form-control distributor">#}
+                        {#<option value="0">-Select-</option>#}
+                    {#</select>#}
+                    {#<p class="help-block"><a>Distributor Quick Add</a></p>#}
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="Colors">Color</label>
+                <div class="col-lg-4">
+                    <input type="text" id="colors" name="product[productColor]" placeholder="Product Color" class="form-control colors">
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="Weight">Weight</label>
+                <div class="col-lg-4">
+                    <input type="text" id="weight" name="product[productWeight]" placeholder="Product Weight" class="form-control weight">
+                </div>
+            </div>
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2" for="SKU">SKU</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="text" id="sku" name="SKU" placeholder="" class="form-control sku">#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="ManufacturerPart">Manufacturer Part</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="text" id="manufacturerPart" name="ManufacturerPart" placeholder="" class="form-control manufacturer-part">#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="Published">Published</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="Published" class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="Published" checked class="input-xlarge"><span>Yes</span>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="Featured">Featured</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="Featured" class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="Featured" checked class="input-xlarge"><span>Yes</span>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2" for="PageDisplay">Page Display</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<select id="pageDisplay" name="PageDisplay" class="form-control page-display">#}
+                        {#<option value="0">-Select-</option>#}
+                    {#</select>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2" for="ColumnWidth">Column Width</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="text" id="columnWidth" name="ColumnWidth" placeholder="" class="form-control column-width">#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2" for="TaxClass">Tax Class</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<select id="taxClass" name="TaxClass" class="form-control tax-class">#}
+                        {#<option value="0">-Select-</option>#}
+                    {#</select>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2" for="QuantityDiscountTable">Quantity Discount Table</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<select id="quantityDiscount" name="QuantityDiscountTable" class="form-control quantity-discount">#}
+                        {#<option value="0">-Select-</option>#}
+                    {#</select>#}
+                    {#<p class="help-block"><a>Quantity Discount Quick Add</a></p>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="ShowBuyButton">Show Buy Button</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="ShowBuyButton" class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="ShowBuyButton" checked class="input-xlarge"><span>Yes</span>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="RequiresRegistrationToView">Requires Registration To View</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="RequiresRegistrationToView" checked class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="RequiresRegistrationToView"  class="input-xlarge"><span>Yes</span>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="CallToOrder">Is Call To Order</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="CallToOrder" checked class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="CallToOrder"  class="input-xlarge"><span>Yes</span>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="HidePriceUntilCart">Hide Price Until Cart</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="HidePriceUntilCart" checked class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="HidePriceUntilCart"  class="input-xlarge"><span>Yes</span>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="ProductFeeds">Exclude From Product Feeds</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="ProductFeeds" checked class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="ProductFeeds"  class="input-xlarge"><span>Yes</span>#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="Inventory">Track Inventory By Size and Color</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="Inventory" checked class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="Inventory"  class="input-xlarge"><span>Yes</span>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2" for="ColorOptionPrompt">Color Option Prompt</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="text" id="colorOptionPrompt" name="ColorOptionPrompt" placeholder="" class="form-control color-option-prompt">#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2" for="SizeOptionPrompt">Size Option Prompt</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="text" id="sizeOptionPrompt" name="SizeOptionPrompt" placeholder="" class="form-control size-option-prompt">#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2"  for="RequiresTextField">Product Сtate</label>#}
+                {#<div class="col-lg-4">#}
+                    {#<input type="radio"  name="RequiresTextField" checked class="input-xlarge"><span>No</span>#}
+                    {#<input type="radio"  name="RequiresTextField"  class="input-xlarge"><span>Yes</span>#}
+                    {#<p class="help-block">#}
+                        {#<span>Field Prompt </span><input type="text" id="fieldPrompt" name="FieldPrompt" placeholder="" class="form-control field-prompt">#}
+                    {#</p>#}
+                    {#<p class="help-block">#}
+                        {#<span>Max Length </span><input type="text" id="maxLength" name="MaxLength" placeholder="" class="form-control max-length">#}
+                    {#</p>#}
+                {#</div>#}
+            {#</div>#}
+
+            {#<h3>Default Variant Information</h3>#}
+
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="Price">Price</label>
+                <div class="col-lg-4">
+                    <input type="text" id="price" name="product[price]" placeholder="Product Price" class="form-control price">
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="SalePrice">Quantity</label>
+                <div class="col-lg-4">
+                    <input type="text" id="quantity" name="product[quantity]" placeholder="Product Quantity" class="form-control sale-price">
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2"  for="IsNew">Product Condition</label>
+                <div class="col-lg-2">
+                    <input type="radio"  name="product[isNew]" checked class="input-xlarge" value="1"><span>New</span>
+                    <input type="radio"  name="product[isNew]"  class="input-xlarge" value="0"><span>Old</span>
+                </div>
+            </div>
+
+            {#<div class="col-lg-12 form-group">#}
+                {#<label class="col-lg-2" for="Dimentions">Dimentions(Width x Height X Depth)</label>#}
+                {#<div class="col-lg-10">#}
+                    {#<div class="col-lg-3"><input type="text" id="dimentionsWidth" name="DimentionsWidth" placeholder="" class="form-control dimentions-width">  X</div>#}
+                    {#<div class="col-lg-3"><input type="text" id="dimentionsHeight" name="DimentionsHeight" placeholder="" class="form-control dimentions-height">  X</div>#}
+                    {#<div class="col-lg-3"><input type="text" id="dimentionsDepth" name="DimentionsDepth" placeholder="" class="form-control dimentions-depth"></div>#}
+                {#</div>#}
+            {#</div>#}
+
+            <div class=" col-lg-12 form-group">
+                <label class="col-lg-2" for="Continent">Continent</label>
+                <div class="col-lg-4">
+                    <select id="continent" name="product[productLocationContinent]" class="form-control product-type">
+                        {% for key,val in form.productLocationContinent.vars.choices %}
+                            <option value="{{ val.value }}">{{ val.label }}</option>
+                            {#<option value="{{ val.value }}" {{  form.productType.vars.value == '' and key == 0 ? ' selected ' :(val.value == form.productType.vars.value ? ' selected ' : '') }}>{{ val.label | trans }}</option>#}
+                        {% endfor %}
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="Country">Country</label>
+                <div class="col-lg-4">
+                    <input type="text" id="country" name="product[productLocationCountry]" placeholder="Location: Country" class="form-control current-inventory">
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="City">City</label>
+                <div class="col-lg-4">
+                    <input type="text" id="city" name="product[productLocationCity]" placeholder="Location: City" class="form-control sizes">
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="Description">Description</label>
+                <div class="col-lg-4">
+
+                    <input type="text" id="description" name="product[description]" placeholder="Product Description" class="form-control size-modifier">
+                </div>
+            </div>
+            <div class="col-lg-12 form-group">
+                <label class="col-lg-2" for="Image">Image</label>
+                <div class="col-lg-4">
+                    <input type="text" id="image" name="product[imageUrl]" placeholder="Product Image" class="form-control size-modifier">
+                </div>
+            </div>
+
+            {{ form_row(form._token) }}
+
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <a class="btn btn-default" href="{{ path('SkyStore_index') }}">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
 {% endblock %}

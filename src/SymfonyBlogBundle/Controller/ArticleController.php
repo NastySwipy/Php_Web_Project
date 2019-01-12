@@ -45,6 +45,7 @@ class ArticleController extends Controller
             $article->setImage($fileName);
             $article->setAuthor($currentUser);
             $article->setViewCount(0);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();

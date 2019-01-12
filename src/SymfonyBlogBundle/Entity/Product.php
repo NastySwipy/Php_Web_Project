@@ -135,6 +135,14 @@ class Product
     private $productLocationCountry;
 
     /**
+     * @Assert\NotBlank()
+     * @var string
+     *
+     * @ORM\Column(name="productLocationCity", type="string", length=255)
+     */
+    private $productLocationCity;
+
+    /**
      * @Assert\Length(
      *      min = 4,
      *      minMessage = "Your description must be at least 4 characters long",
@@ -532,6 +540,21 @@ class Product
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getProductLocationCity()
+    {
+        return $this->productLocationCity;
+    }
+
+    /**
+     * @param string $productLocationCity
+     */
+    public function setProductLocationCity($productLocationCity)
+    {
+        $this->productLocationCity = $productLocationCity;
+    }
 
 
 }

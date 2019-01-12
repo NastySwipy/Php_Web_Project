@@ -3,43 +3,57 @@
 {% block body %}
     <h1>Products list</h1>
 
-    <table border="2">
+    <table>
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Date Added</th>
+                <th>Product Name</th>
+                <th>Product Type</th>
                 <th>Make</th>
                 <th>Model</th>
+                <th>Color</th>
+                <th>Weight</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th>Isnew</th>
-                <th>Productlocationcontinent</th>
-                <th>Productlocationcountry</th>
+                <th>New/Old</th>
+                <th>Continent</th>
+                <th>Country</th>
+                <th>City</th>
                 <th>Description</th>
-                <th>Imageurl</th>
+                <th>Image</th>
+                <th>Authorid</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for product in products %}
             <tr>
-                <td><a href="{{ path('SkyStore_Product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td><a href="{{ path('SkyStore_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td>{% if product.dateAdded %}{{ product.dateAdded|date('Y F jS \\a\\t g:ia', 'Europe/Sofia') }}{% endif %}</td>
+                <td>{{ product.productName }}</td>
+                <td>{{ product.productType }}</td>
                 <td>{{ product.make }}</td>
                 <td>{{ product.model }}</td>
+                <td>{{ product.productColor }}</td>
+                <td>{{ product.productWeight }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>{% if product.isNew %}Yes{% else %}No{% endif %}</td>
                 <td>{{ product.productLocationContinent }}</td>
                 <td>{{ product.productLocationCountry }}</td>
-                <td>{{ product.description[:100] ~ '...' }}</td>
+                <td>{{ product.productLocationCity }}</td>
+                <td>{{ product.description[:50] ~ '...' }}</td>
                 {#<td>{{ product.imageUrl }}</td>#}
-                <td><img src="{{ product.imageUrl }}" alt="W3Schools.com" style="width:120px;height:50px;"></td>
+                <td><img src="{{ product.imageUrl|raw }}" alt="EquipmentImg" style="width:100px;height:50px;"></td>
+                <td>{{ product.author.shortName }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('SkyStore_Product_show', { 'id': product.id }) }}">show</a>
+                            <a href="{{ path('SkyStore_show', { 'id': product.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('SkyStore_Product_edit', { 'id': product.id }) }}">edit</a>
+                            <a href="{{ path('SkyStore_edit', { 'id': product.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -50,7 +64,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('SkyStore_Product_new') }}">Create a new product</a>
+            <a href="{{ path('SkyStore_new') }}">Create a new product</a>
         </li>
     </ul>
 {% endblock %}

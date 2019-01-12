@@ -10,12 +10,32 @@
                 <td>{{ product.id }}</td>
             </tr>
             <tr>
+                <th>Dateadded</th>
+                <td>{% if product.dateAdded %}{{ product.dateAdded|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Productname</th>
+                <td>{{ product.productName }}</td>
+            </tr>
+            <tr>
+                <th>Producttype</th>
+                <td>{{ product.productType }}</td>
+            </tr>
+            <tr>
                 <th>Make</th>
                 <td>{{ product.make }}</td>
             </tr>
             <tr>
                 <th>Model</th>
                 <td>{{ product.model }}</td>
+            </tr>
+            <tr>
+                <th>Productcolor</th>
+                <td>{{ product.productColor }}</td>
+            </tr>
+            <tr>
+                <th>Productweight</th>
+                <td>{{ product.productWeight }}</td>
             </tr>
             <tr>
                 <th>Price</th>
@@ -38,6 +58,10 @@
                 <td>{{ product.productLocationCountry }}</td>
             </tr>
             <tr>
+                <th>Productlocationcity</th>
+                <td>{{ product.productLocationCity }}</td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ product.description }}</td>
             </tr>
@@ -45,15 +69,19 @@
                 <th>Imageurl</th>
                 <td>{{ product.imageUrl }}</td>
             </tr>
+            <tr>
+                <th>Authorid</th>
+                <td>{{ product.authorId }}</td>
+            </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('SkyStore_Product_index') }}">Back to the list</a>
+            <a href="{{ path('SkyStore_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('SkyStore_Product_edit', { 'id': product.id }) }}">Edit</a>
+            <a href="{{ path('SkyStore_edit', { 'id': product.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

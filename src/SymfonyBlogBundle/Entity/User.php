@@ -82,7 +82,7 @@ class User implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Article", mappedBy="product", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="SymfonyBlogBundle\Entity\Product", mappedBy="author", cascade={"remove"})
      */
     private $products;
 

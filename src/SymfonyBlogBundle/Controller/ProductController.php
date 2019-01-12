@@ -7,13 +7,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
-
+/**
+ * Product controller.
+ *
+ * @Route("SkyStore")
+ */
 class ProductController extends Controller
 {
     /**
      * Lists all product entities.
      *
-     * @Route("/SkyStore", name="SkyStore_Product_index")
+     * @Route("/", name="SkyStore_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -27,24 +31,58 @@ class ProductController extends Controller
         ));
     }
 
+//    /**
+//     * Creates a new product entity.
+//     *
+//     * @Route("/newProduct0", name="SkyStore_new0")
+//     * @Method({"GET", "POST"})
+//     */
+//    public function createNewProductAction(Request $request)
+//    {
+//        $product = new Product();
+//        $form = $this->createForm('SymfonyBlogBundle\Form\ProductType', $product);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//
+//            $currentUser = $this->getUser();
+//            $product->setAuthor($currentUser);
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($product);
+//            $em->flush();
+//
+//            return $this->redirectToRoute('SkyStore_show', array('id' => $product->getId()));
+//        }
+//
+//        return $this->render('product/new0.html.twig', array(
+//            'product' => $product,
+//            'form' => $form->createView(),
+//        ));
+//    }
+
     /**
      * Creates a new product entity.
      *
-     * @Route("/SkyStore/Product/new", name="SkyStore_Product_new")
+     * @Route("/newProduct", name="SkyStore_new")
      * @Method({"GET", "POST"})
      */
-    public function createAction(Request $request)
+    public function createNewProductAction2(Request $request)
     {
         $product = new Product();
         $form = $this->createForm('SymfonyBlogBundle\Form\ProductType', $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $currentUser = $this->getUser();
+            $product->setAuthor($currentUser);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
 
-            return $this->redirectToRoute('SkyStore_Product_show', array('id' => $product->getId()));
+            return $this->redirectToRoute('SkyStore_show', array('id' => $product->getId()));
         }
 
         return $this->render('product/new.html.twig', array(
@@ -54,38 +92,12 @@ class ProductController extends Controller
     }
 
     /**
-     * Creates a new product entity.
-     *
-     * @Route("/SkyStore/Product/new2", name="SkyStore_Product_new2")
-     * @Method({"GET", "POST"})
-     */
-    public function createActionTwo(Request $request)
-    {
-        $product = new Product();
-        $form = $this->createForm('SymfonyBlogBundle\Form\ProductType', $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($product);
-            $em->flush();
-
-            return $this->redirectToRoute('SkyStore_Product_show', array('id' => $product->getId()));
-        }
-
-        return $this->render('product/new2.html.twig', array(
-            'product' => $product,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
      * Finds and displays a product entity.
      *
-     * @Route("/SkyStore/ProductView/{id}", name="SkyStore_Product_show")
+     * @Route("/{id}", name="SkyStore_show")
      * @Method("GET")
      */
-    public function showAction(Product $product)
+    public function viewProductAction(Product $product)
     {
         $deleteForm = $this->createDeleteForm($product);
 
@@ -98,19 +110,22 @@ class ProductController extends Controller
     /**
      * Displays a form to edit an existing product entity.
      *
-     * @Route("/SkyStore/ProductEdit/{id}/edit", name="SkyStore_Product_edit")
+     * @Route("/{id}/editProduct", name="SkyStore_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Product $product)
+    public function editProductAction(Request $request, Product $product)
     {
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm('SymfonyBlogBundle\Form\ProductType', $product);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $product->setDateAdded(new \DateTime('now'));
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('SkyStore_Product_edit', array('id' => $product->getId()));
+            return $this->redirectToRoute('SkyStore_edit', array('id' => $product->getId()));
         }
 
         return $this->render('product/edit.html.twig', array(
@@ -123,7 +138,7 @@ class ProductController extends Controller
     /**
      * Deletes a product entity.
      *
-     * @Route("/SkyStore/ProductDelete/{id}", name="SkyStore_Product_delete")
+     * @Route("/delete/{id}", name="SkyStore_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Product $product)
@@ -137,7 +152,7 @@ class ProductController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('SkyStore_Product_index');
+        return $this->redirectToRoute('SkyStore_index');
     }
 
     /**
@@ -150,7 +165,7 @@ class ProductController extends Controller
     private function createDeleteForm(Product $product)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('SkyStore_Product_delete', array('id' => $product->getId())))
+            ->setAction($this->generateUrl('SkyStore_delete', array('id' => $product->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

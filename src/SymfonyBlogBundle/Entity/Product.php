@@ -88,7 +88,7 @@ class Product
      * @Assert\NotBlank()
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="price", type="decimal")
      */
     private $price;
 

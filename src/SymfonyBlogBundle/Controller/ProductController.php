@@ -31,6 +31,23 @@ class ProductController extends Controller
         ));
     }
 
+    /**
+     * Lists all product entities.
+     *
+     * @Route("/test", name="SkyStore_index_test")
+     * @Method("GET")
+     */
+    public function indexActionTest()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $products = $em->getRepository('SymfonyBlogBundle:Product')->findAll();
+
+        return $this->render('indexTest.html.twig', array(
+            'products' => $products,
+        ));
+    }
+
 //    /**
 //     * Creates a new product entity.
 //     *

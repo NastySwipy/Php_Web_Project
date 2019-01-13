@@ -1,70 +1,32 @@
 {% extends 'baseStore.html.twig' %}
 
 {% block body %}
-    <h1>Products list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date Added</th>
-                <th>Product Name</th>
-                <th>Product Type</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Color</th>
-                <th>Weight</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>New/Old</th>
-                <th>Continent</th>
-                <th>Country</th>
-                <th>City</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Authorid</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td><a href="{{ path('SkyStore_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
-                <td>{% if product.dateAdded %}{{ product.dateAdded|date('Y F jS \\a\\t g:ia', 'Europe/Sofia') }}{% endif %}</td>
-                <td>{{ product.productName }}</td>
-                <td>{{ product.productType }}</td>
-                <td>{{ product.make }}</td>
-                <td>{{ product.model }}</td>
-                <td>{{ product.productColor }}</td>
-                <td>{{ product.productWeight }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.quantity }}</td>
-                <td>{% if product.isNew %}Yes{% else %}No{% endif %}</td>
-                <td>{{ product.productLocationContinent }}</td>
-                <td>{{ product.productLocationCountry }}</td>
-                <td>{{ product.productLocationCity }}</td>
-                <td>{{ product.description[:50] ~ '...' }}</td>
-                {#<td>{{ product.imageUrl }}</td>#}
-                <td><img src="{{ product.imageUrl|raw }}" alt="EquipmentImg" style="width:100px;height:50px;"></td>
-                <td>{{ product.author.shortName }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('SkyStore_show', { 'id': product.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('SkyStore_edit', { 'id': product.id }) }}">edit</a>
-                        </li>
+    <div class="container">
+        <h3 class="h3">Paragliding</h3>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-3 col-sm-6">
+                <div class="product-grid6">
+                    <div class="product-image6">
+                        <a href="{{ path('SkyStore_show', { 'id': product.id }) }}">
+                            <img class="pic-1" style="width: 250px; height: 110px" src="{{ product.imageUrl|raw }}" >
+                        </a>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="title"><a href="#">{{ product.productName }}</a></h3>
+                        <div class="price">€{{ product.price }}
+                            {#<span>$14.00</span>#}
+                        </div>
+                    </div>
+                    <ul class="social">
+                        <li><a href="" data-tip="Quick View"><i class="glyphicon glyphicon-search"></i></a></li>
+                        <li><a href="" data-tip="Add to Wishlist"><i class="glyphicon glyphicon-briefcase"></i></a></li>
+                        <li><a href="" data-tip="Add to Cart"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
                     </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('SkyStore_new') }}">Create a new product</a>
-        </li>
-    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
 {% endblock %}
